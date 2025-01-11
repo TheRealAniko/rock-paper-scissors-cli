@@ -1,6 +1,5 @@
 // example.js
 const args = process.argv.slice(2);
-console.log(args);
 
 const options = ["rock", "paper", "scissor"];
 
@@ -17,9 +16,14 @@ if (!args.includes("rock", "paper", "scissor")) {
 // Spellcheck? Handle upper and lower case inputs
 
 // System randomly selects a value from options: "rock", "paper" or "scissor"
+const randomOption = (options) =>
+    options[Math.floor(Math.random() * options.length)];
+
+// console.log(randomOptions(options));
 
 // Compare players input with systems value
 
 // Define the rules for winning/loosing
 
 // Output the result
+console.log(`Your input: ${args} / Computers input: ${randomOption(options)}`);
