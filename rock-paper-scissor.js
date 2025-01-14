@@ -1,37 +1,59 @@
-// example.js
+// Extract Command-Line Arguments
 const args = process.argv.slice(2);
-const options = ["rock", "paper", "scissor"];
-const playerMove = args[0].trim().toLowerCase();
 
-// Check if players input is a single value; if not log message
-if (args.length !== 1) {
-    console.error("Pleaser enter just one option!");
+// Sanitize and Validate Input
+const playerInput = args.map((input) => input.trim().toLowerCase());
+
+// Define Game Options
+const gameMoves = ["rock", "paper", "scissors"];
+
+// Validate Input
+if (playerInput.length === 0) {
+    console.error(`No input detected! Please choose your weapon!`);
     return;
 }
-// Check if players input is "rock", "paper" or "scissor"; if not log message
 
-if (!options.includes(playerMove)) {
-    console.error("Pleaser enter rock, paper or scissor!");
+const validMove = playerInput.filter((move) => gameMoves.includes(move));
+const invalidMove = playerInput.filter((move) => !gameMoves.includes(move));
+
+if (validMove.length > 1) {
+    console.error(
+        `You chose multiple moves: "${validMove}". Please enter "rock", "paper", or "scissors"!`
+    );
     return;
 }
+if (invalidMove.length > 0) {
+    console.error(
+        `Invalid move: "${invalidMove}". Please enter "rock", "paper", or "scissors"!`
+    );
+    return;
+}
+const playerMove = validMove[0];
 
-// System randomly selects a value from options: "rock", "paper" or "scissor"
-const randomOption = (options) =>
-    options[Math.floor(Math.random() * options.length)];
-const computerMove = randomOption(options);
+// Generate Computer Move
+const randomMove = (gameMoves) =>
+    gameMoves[Math.floor(Math.random() * gameMoves.length)];
+const computerMove = randomMove(gameMoves);
 
-// Compare players input with systems value & Define the rules for winning/loosing
+// Step 6: Compare Moves
 if (playerMove === computerMove) {
-    console.log("It is a tie! Great minds think alike.");
+    console.log(
+        `Your move: ${playerMove}! The computer strikes with: ${computerMove}! It is a tie! Great minds think alike.`
+    );
 } else if (playerMove === "rock" && computerMove === "scissors") {
-    console.log("You crushed it! The computer had no chance.");
+    console.log(
+        `Your move: ${playerMove}! The computer strikes with: ${computerMove}! You crushed it! The computer had no chance.`
+    );
 } else if (playerMove === "paper" && computerMove === "rock") {
-    console.log("You crushed it! The computer had no chance.");
-} else if (playerMove === "scissor" && computerMove === "paper") {
-    console.log("You crushed it! The computer had no chance.");
+    console.log(
+        `Your move: ${playerMove}! The computer strikes with: ${computerMove}! You crushed it! The computer had no chance.`
+    );
+} else if (playerMove === "scissors" && computerMove === "paper") {
+    console.log(
+        `Your move: ${playerMove}! The computer strikes with: ${computerMove}! You crushed it! The computer had no chance.`
+    );
 } else {
-    console.log("Ouch! The computer wins this one.");
+    console.log(
+        `Your move: ${playerMove}! The computer strikes with: ${computerMove}! Ouch! The computer wins this one.`
+    );
 }
-
-// Output the result
-console.log(`Your input: ${args} / Computers input: ${computerMove}`);
